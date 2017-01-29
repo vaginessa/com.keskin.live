@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Rastgele Arkaplan Rengi</string>
+    <string name="wal">live</string>
+    <string name="title_activity_settings">Duvar Kağıdı Ayarları</string>
+</resources>
