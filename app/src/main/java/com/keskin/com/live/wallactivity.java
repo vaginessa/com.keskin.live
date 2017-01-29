@@ -8,12 +8,17 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import static com.keskin.com.live.R.id.regular;
+
 
 public class wallactivity extends WallpaperService {
     public Engine onCreateEngine() {
         return new engine();
     }
-
+    int[] red = {0};
+    int[] green={0};
+    int[] blue = {0};
+    int[] status = {1};
 
 
 
@@ -42,11 +47,217 @@ public class wallactivity extends WallpaperService {
         }
         public void onOffsetsChanged(float xOffset, float yOffset, float xStep, float yStep, int xPixels, int yPixels)
         {
-            drawFrame();
+            SharedPreferences edit = getSharedPreferences("renk",MODE_PRIVATE);
+            int regular =edit.getInt("regular",0);
+            Random ra = new Random();
+            status[0] = ra.nextInt(14);
+            //random start status
+            if (status[0] ==1){
+                red[0] = 0;
+                green[0]=0;
+                blue[0] = 0;
+            }
+            if (status[0] ==2){
+                red[0] = 255;
+                green[0]=0;
+                blue[0] = 0;
+            }
+            if (status[0] ==3){
+                red[0] = 0;
+                green[0]=255;
+                blue[0] = 0;
+            }
+            if (status[0] ==4){
+                red[0] = 255;
+                green[0]=255;
+                blue[0] = 0;
+            }
+            if (status[0] ==5){
+                red[0] = 0;
+                green[0]=0;
+                blue[0] = 255;
+            }
+            if (status[0] ==6){
+                red[0] = 255;
+                green[0]=0;
+                blue[0] = 255;
+            }
+            if (status[0] ==7){
+                red[0] = 0;
+                green[0]=255;
+                blue[0] = 255;
+            }
+            if (status[0] ==8){
+                red[0] = 255;
+                green[0]=255;
+                blue[0] = 255;
+            }
+            if (status[0] ==9){
+                red[0] = 0;
+                green[0]=255;
+                blue[0] = 255;
+            }
+            if (status[0] ==10){
+                red[0] = 255;
+                green[0]=0;
+                blue[0] = 255;
+            }
+            if (status[0] ==11){
+                red[0] = 0;
+                green[0]=0;
+                blue[0] = 255;
+            }
+            if (status[0] ==12){
+                red[0] = 255;
+                green[0]=255;
+                blue[0] = 0;
+            }
+            if (status[0] ==13){
+                red[0] = 0;
+                green[0]=255;
+                blue[0] = 0;
+            }
+            if (status[0] ==14){
+                red[0] = 255;
+                green[0]=0;
+                blue[0] = 0;
+        }
+            //set mode
+            if (regular == 0) {
+                drawFrame();
+            }
+            if (regular == 1) {
+                drawregular();
+            }
+        }
+
+         void drawregular() {
+             final SurfaceHolder holder = getSurfaceHolder();
+             final Handler h = new Handler();
+                          final Runnable r = new Runnable() {
+                 @Override
+                 public void run() {
+                     //set varibles
+                     if (status[0] == 1){
+                         red[0] = red[0] +1;
+                         if (red[0] == 255){
+                             status[0] = 2;
+                         }
+                     }
+                     if (status[0] == 2){
+                         red[0]=red[0]-1;
+                         green[0] = green[0] +1;
+                         if (green[0] == 255){
+                             status[0] = 3;
+                         }
+                     }
+                     if (status[0] == 3){
+                         red[0] = red[0] +1;
+                         if (red[0] == 255){
+                             status[0] = 4;
+                         }
+                     }
+                     if (status[0] == 4){
+                         red[0]=red[0]-1;
+                         green[0] = green[0] -1;
+                         blue[0]=blue[0]+1;
+                         if (blue[0] == 255){
+                             status[0] = 5;
+                         }
+                     }
+                     if (status[0] == 5){
+                         red[0]=red[0]+1;
+                         if (red[0] == 255){
+                             status[0] = 6;
+                         }
+                     }
+                     if (status[0] == 6){
+                         red[0]=red[0]-1;
+                         green[0] = green[0] +1;
+                         if (green[0] == 255){
+                             status[0] = 7;
+                         }
+                     }
+
+                     if (status[0] == 7){
+                         red[0]=red[0]+1;
+                         if (red[0] == 255){
+                             status[0] = 8;
+                         }
+                     }
+                     //reverse
+                     if (status[0] == 8) {
+                         red[0] = red[0] - 1;
+                         if (red[0] == 0) {
+                             status[0] = 9;
+                         }
+                     }
+                     if (status[0] == 9) {
+                         red[0] = red[0] +1;
+                         green[0] = green[0] -1;
+                         if (red[0] == 255) {
+                             status[0] = 10;
+                         }
+                     }
+                     if (status[0] == 10) {
+                         red[0] = red[0] - 1;
+                         if (red[0] == 0) {
+                             status[0] = 11;
+                         }
+                     }
+
+                     if (status[0] == 11) {
+                         red[0]=red[0]+1;
+                         green[0] = green[0] +1;
+                         blue[0]=blue[0]-1;
+                         if (red[0] == 255) {
+                             status[0] = 12;
+                         }
+                     }
+                     if (status[0] == 12) {
+                         red[0]=red[0]-1;
+                         if (red[0] == 0) {
+                             status[0] = 13;
+                         }
+                     }
+                     if (status[0] == 13) {
+                         red[0]=red[0]+1;
+                         green[0]=green[0]-1;
+                         if (red[0] == 255) {
+                             status[0] = 14;
+                         }
+                     }
+
+                     if (status[0] == 14) {
+                         red[0]=red[0]-1;
+                         if (red[0] == 0) {
+                             status[0] = 1;
+                         }
+                     }
+
+                     //draw canvar
+                     Canvas c = null;
+                     try
+                     {
+                         c = holder.lockCanvas();
+                         if (c != null)
+                         {
+                             c.drawARGB(255,red[0],green[0],blue[0]);
+                         }
+                     } finally
+                     {
+                         if (c != null) holder.unlockCanvasAndPost(c);
+                     }
+                     h.postDelayed(this,1);
+                 }
+             };
+
+             h.post(r);
         }
 
         void drawFrame()
         {
+
             final SurfaceHolder holder = getSurfaceHolder();
             Random rand = new Random();
             SharedPreferences edit = getSharedPreferences("renk",MODE_PRIVATE);

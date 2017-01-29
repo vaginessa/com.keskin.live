@@ -1,10 +1,15 @@
 package com.keskin.com.live;
 
+import android.app.WallpaperManager;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 public class settings extends Activity {
 
@@ -22,8 +27,20 @@ public class settings extends Activity {
         green.setText(Integer.toString(read.getInt("g",255)));
         blue.setText(Integer.toString(read.getInt("b",255)));
 
+        Button tg = (Button) findViewById(R.id.regular);
+        LinearLayout linear =(LinearLayout) findViewById(R.id.linear);
+        if (tg.getText() == "MOD:Düzenli Renkler")
+        {
+            linear.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            linear.setVisibility(View.VISIBLE);
+         }
 
     }
+
+
     public void ayarla(View view){
 
         SharedPreferences.Editor edit = getSharedPreferences("renk",MODE_PRIVATE).edit();
@@ -38,4 +55,28 @@ public class settings extends Activity {
         edit.commit();
     }
 
+    public void duzenli(View view){
+        Button tg = (Button) findViewById(R.id.regular);
+        SharedPreferences.Editor edit = getSharedPreferences("renk",MODE_PRIVATE).edit();
+        LinearLayout linear =(LinearLayout) findViewById(R.id.linear);
+        if (tg.getText() == "MOD:Düzenli Renkler")
+        {
+            tg.setText("MOD:Rastgele Renkler");
+            linear.setVisibility(View.VISIBLE);
+            edit.putInt("regular",0);
+            edit.commit();
+        }
+        else
+        {
+            tg.setText("MOD:Düzenli Renkler");
+            linear.setVisibility(View.INVISIBLE);
+            edit.putInt("regular",1);
+            edit.commit();
+        }
+        Intent intent = new Intent(
+                WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
+        intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
+                new ComponentName(this, wallactivity.class));
+        startActivity(intent);
+    }
 }
